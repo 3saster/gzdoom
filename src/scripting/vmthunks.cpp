@@ -2345,6 +2345,31 @@ DEFINE_ACTION_FUNCTION_NATIVE(DBaseStatusBar, BeginHUD, BeginHUD)
 	return 0;
 }
 
+void ResetStatusbar()
+{
+	ST_CreateStatusBar(false);
+}
+
+DEFINE_ACTION_FUNCTION_NATIVE(DBaseStatusBar, ResetStatusbar)
+{
+	PARAM_PROLOGUE;
+	ResetStatusbar();
+	return 0;
+}
+
+void SetStatusbar(const FName &statusbarclass)
+{
+	ST_CreateStatusBar(false, true, statusbarclass);
+}
+
+DEFINE_ACTION_FUNCTION_NATIVE(DBaseStatusBar, SetStatusbar)
+{
+	PARAM_PROLOGUE;
+	PARAM_NAME(statusbarclass);
+	SetStatusbar(statusbarclass);
+	return 0;
+}
+
 static void UpdateScreenGeometry(DBaseStatusBar *)
 {
 	setsizeneeded = true;

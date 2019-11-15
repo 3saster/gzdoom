@@ -226,14 +226,14 @@ static void CreateBaseStatusBar()
 	StatusBar->SetSize(0);
 }
 
-static void CreateGameInfoStatusBar(bool &shouldWarn)
+static void CreateGameInfoStatusBar(bool &shouldWarn, FName statusbarclass = gameinfo.statusbarclass)
 {
-	auto cls = PClass::FindClass(gameinfo.statusbarclass);
+	auto cls = PClass::FindClass(statusbarclass);
 	if (cls == nullptr)
 	{
 		if (shouldWarn)
 		{
-			Printf(TEXTCOLOR_RED "Unknown status bar class \"%s\"\n", gameinfo.statusbarclass.GetChars());
+			Printf(TEXTCOLOR_RED "Unknown status bar class \"%s\"\n", statusbarclass.GetChars());
 			shouldWarn = false;
 		}
 	}
@@ -245,13 +245,13 @@ static void CreateGameInfoStatusBar(bool &shouldWarn)
 		}
 		else if (shouldWarn)
 		{
-			Printf(TEXTCOLOR_RED "Status bar class \"%s\" is not derived from BaseStatusBar\n", gameinfo.statusbarclass.GetChars());
+			Printf(TEXTCOLOR_RED "Status bar class \"%s\" is not derived from BaseStatusBar\n", statusbarclass.GetChars());
 			shouldWarn = false;
 		}
 	}
 }
 
-void ST_CreateStatusBar(bool bTitleLevel)
+void ST_CreateStatusBar(bool bTitleLevel, bool override, FName statusbarclass)
 {
 	if (StatusBar != NULL)
 	{
@@ -272,7 +272,11 @@ void ST_CreateStatusBar(bool bTitleLevel)
 		// if the class is defined later, this will be picked. If both come from the same file, the class definition will win.
 		int sbarinfolump = Wads.CheckNumForName("SBARINFO");
 		int sbarinfofile = Wads.GetLumpFile(sbarinfolump);
-		if (gameinfo.statusbarclassfile >= gameinfo.statusbarfile && gameinfo.statusbarclassfile >= sbarinfofile)
+		if (override)
+		{
+			CreateGameInfoStatusBar(shouldWarn, statusbarclass);
+		}
+		else if (gameinfo.statusbarclassfile >= gameinfo.statusbarfile && gameinfo.statusbarclassfile >= sbarinfofile)
 		{
 			CreateGameInfoStatusBar(shouldWarn);
 		}

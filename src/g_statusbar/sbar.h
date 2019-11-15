@@ -522,7 +522,7 @@ DBaseStatusBar *CreateCustomStatusBar(int script=0);
 
 void ST_LoadCrosshair(bool alwaysload=false);
 void ST_Clear();
-void ST_CreateStatusBar(bool bTitleLevel);
+void ST_CreateStatusBar(bool bTitleLevel, bool override=false, FName statusbarclass="");
 extern FTexture *CrosshairImage;
 
 int GetInventoryIcon(AActor *item, uint32_t flags, int *applyscale = nullptr);

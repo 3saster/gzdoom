@@ -316,6 +316,9 @@ class BaseStatusBar native ui
 	native void BeginStatusBar(bool forceScaled = false, int resW = -1, int resH = -1, int rel = -1);
 	native void BeginHUD(double Alpha = 1., bool forcescaled = false, int resW = -1, int resH = -1);
 	
+	native static void ResetStatusBar();
+	native static void SetStatusBar(Name statusbarclass);
+
 	native void UpdateScreenGeometry();
 
 	virtual void Init() 
