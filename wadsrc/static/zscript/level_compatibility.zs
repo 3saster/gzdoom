@@ -393,6 +393,17 @@ class LevelCompatibility : LevelPostProcessor
 				break;
 			}
 
+			case '51B79366D3642A15FFCE985088F44648': // Plutonia: Revisited map31
+			{
+				// Make first door stay open to avoid getting trapped and
+				// allow the map to be completed
+				SetLineSpecial(242, Door_Open, 0, 64);
+				// Fix incorrect texture on same door
+				TextureID doortrak = TexMan.CheckForTexture("DOORTRAK", TexMan.Type_Wall);
+				SetWallTextureID(52, Line.front, Side.mid, DOORTRAK);
+				break;
+			}
+
 			case '5B26545FF21B051CA06D389CE535684C': // doom.wad e1m4
 			{
 				// missing textures	
